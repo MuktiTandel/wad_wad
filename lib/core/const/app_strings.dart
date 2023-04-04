@@ -20,5 +20,13 @@ class AppStrings {
   static const String jCommunity = "Join Community?";
   static const String fyPassword = "Forgot your password";
   static const String cHere = "click here";
+  static const String wLDogs = "We love dogs!!";
+  static const String tUSAbout = "Tell us something about";
+  static const String you = "You";
+  static const String dOwner = "Doggie Owner";
+  static const String eYDoggie = "entrust your doggie";
+  static const String dBorrower = "Dog Borrower";
+  static const String mDoggies = "meet doggies";
+  static const String next = "Next";
 
 }

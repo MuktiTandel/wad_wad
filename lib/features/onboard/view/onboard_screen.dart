@@ -28,7 +28,7 @@ class OnboardScreen extends StatelessWidget {
               top: 0,
               child: Image.asset(
                   AppImages.onboard,
-                height: 522.h,
+                height: 527.h,
                 width: Get.width,
                 fit: BoxFit.fill,
               ),
@@ -52,7 +52,7 @@ class OnboardScreen extends StatelessWidget {
                           'community of thousands of members '
                           'that connects doggie owners with people'
                           ' who don’t have dogs but love them.',
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
@@ -74,7 +74,9 @@ class OnboardScreen extends StatelessWidget {
                         fontSize: 10.sp,
                       ),
                       GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Get.offNamed(AppPages.LOGIN);
+                        },
                         child: CustomText(
                             text: " ${AppStrings.login}",
                           color: AppColors.darkOrange,

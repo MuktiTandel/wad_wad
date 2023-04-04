@@ -6,5 +6,10 @@ class AppImages {
   static const String arrowLeft = 'assets/images/arrow_left.png';
   static const String arrowLeftCopy = 'assets/images/arrow_left_copy.png';
   static const String private = 'assets/images/private.png';
+  static const String facebook = 'assets/images/facebook.png';
+  static const String google = 'assets/images/google.png';
+  static const String visibility = 'assets/images/visibility.png';
+  static const String dog1 = 'assets/images/dog1.png';
+  static const String dog2 = 'assets/images/dog2.png';
 
 }

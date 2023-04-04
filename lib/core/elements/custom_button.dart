@@ -10,20 +10,28 @@ class CustomButton extends StatelessWidget {
     required this.buttonText,
     this.height,
     this.borderRadius,
-    this.backgroundColor
+    this.backgroundColor,
+    this.isHome = false,
+    this.width,
+    this.fontSize,
+    this.isSelect = false
   }) : super(key: key);
 
   final VoidCallback onTap;
   final String buttonText;
   final double? height;
+  final double? width;
   final double? borderRadius;
   final Color? backgroundColor;
+  final bool? isHome;
+  final double? fontSize;
+  final bool? isSelect;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: height ?? 50,
-        width: MediaQuery.of(context).size.width,
+        width: width ?? MediaQuery.of(context).size.width,
         child: ElevatedButton(
             onPressed: onTap,
             style: ElevatedButton.styleFrom(
@@ -32,8 +40,16 @@ class CustomButton extends StatelessWidget {
               elevation: 0
             ),
             child: Ink(
-              decoration:  BoxDecoration(
-                gradient: const LinearGradient(colors: [AppColors.darkOrange, AppColors.lightOrange]),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: isHome == true
+                        ? isSelect == true
+                        ? [AppColors.lightOrange, AppColors.darkOrange]
+                        : [AppColors.gray1, AppColors.gray1]
+                        : [AppColors.darkOrange, AppColors.lightOrange],
+                  begin: isHome == true ? Alignment.topCenter : Alignment.centerLeft,
+                  end: isHome == true ? Alignment.bottomCenter : Alignment.centerRight,
+                ),
                 borderRadius: BorderRadius.circular(borderRadius ?? 10)
               ),
               child: SizedBox(
@@ -44,7 +60,7 @@ class CustomButton extends StatelessWidget {
                     buttonText,
                     style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 13.sp,
+                        fontSize: fontSize ?? 13.sp,
                       fontFamily: "Poppins"
                     ),
                   ),

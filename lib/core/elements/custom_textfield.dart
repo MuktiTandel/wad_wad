@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wad_wad/core/const/app_colors.dart';
+import 'package:wad_wad/core/const/app_const.dart';
+import 'package:wad_wad/core/elements/custom_text.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -17,7 +21,9 @@ class CustomTextField extends StatelessWidget {
     this.cursorColor,
     this.prefixWidget,
     this.maxLine,
-    this.autoFocus
+    this.autoFocus,
+    required this.onTap,
+    this.labelPadding
   }) : _validator = validator,
         _onchange = onchange,
         super(key: key);
@@ -37,16 +43,25 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixWidget;
   final int? maxLine;
   final bool? autoFocus;
+  final VoidCallback onTap;
+  final EdgeInsets? labelPadding;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       obscureText: isObscure ?? false,
-      cursorColor: cursorColor ?? Colors.black,
+      cursorColor: cursorColor ?? Colors.blue,
       minLines: 1,
+      onTap: (){
+        onTap();
+      },
       autofocus: autoFocus ?? false,
       maxLines: maxLine ?? 10,
+      textAlignVertical: TextAlignVertical.bottom,
+      style:  const TextStyle(
+        fontFamily: "Poppins",
+      ),
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 15),
@@ -56,11 +71,21 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           prefixIcon: prefixWidget,
           suffixIcon: suffixWidget,
-          hintText: hintText,
-          errorText: errorText
+           hintText: hintText,
+          errorText: errorText,
+          label: Padding(
+            padding: labelPadding ??  EdgeInsets.only(top: 30.h),
+            child: CustomText(
+              text: hintText ?? "",
+              color: AppColors.gray,
+            ),
+          ),
+          hintStyle: const TextStyle(
+            color: AppColors.gray,
+          )
       ),
       validator: (val) => _validator!(val!),
-      onChanged: (val) => _onchange!(val),
+      onChanged: (val) => _onchange!(val) ?? (val){},
     );
   }
 }
