@@ -22,8 +22,8 @@ class CustomTextField extends StatelessWidget {
     this.prefixWidget,
     this.maxLine,
     this.autoFocus,
-    required this.onTap,
-    this.labelPadding
+    this.labelPadding,
+    this.isType = false,
   }) : _validator = validator,
         _onchange = onchange,
         super(key: key);
@@ -43,8 +43,8 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixWidget;
   final int? maxLine;
   final bool? autoFocus;
-  final VoidCallback onTap;
   final EdgeInsets? labelPadding;
+  final bool? isType;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +53,12 @@ class CustomTextField extends StatelessWidget {
       obscureText: isObscure ?? false,
       cursorColor: cursorColor ?? Colors.blue,
       minLines: 1,
-      onTap: (){
-        onTap();
-      },
       autofocus: autoFocus ?? false,
       maxLines: maxLine ?? 10,
-      textAlignVertical: TextAlignVertical.bottom,
-      style:  const TextStyle(
+      textAlignVertical: isType == true ? TextAlignVertical.bottom : TextAlignVertical.center,
+      style:  TextStyle(
         fontFamily: "Poppins",
+        fontSize: 15.sp
       ),
       decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -73,13 +71,13 @@ class CustomTextField extends StatelessWidget {
           suffixIcon: suffixWidget,
            hintText: hintText,
           errorText: errorText,
-          label: Padding(
+          label: isType == true ? Padding(
             padding: labelPadding ??  EdgeInsets.only(top: 30.h),
             child: CustomText(
               text: hintText ?? "",
               color: AppColors.gray,
             ),
-          ),
+          ) : null,
           hintStyle: const TextStyle(
             color: AppColors.gray,
           )

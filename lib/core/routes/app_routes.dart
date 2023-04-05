@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wad_wad/core/routes/app_pages.dart';
+import 'package:wad_wad/features/add_dog_profile/binding/add_dog_profile_binding.dart';
+import 'package:wad_wad/features/add_dog_profile/view/add_dog_profile_screen.dart';
 import 'package:wad_wad/features/home/binding/home_binding.dart';
 import 'package:wad_wad/features/home/view/home_screen.dart';
 import 'package:wad_wad/features/login/binding/login_binding.dart';
@@ -33,6 +35,11 @@ class AppRoutes {
         name: AppPages.HOME,
         page: ()=> HomeScreen(),
       binding: HomeBinding()
+    ),
+    GetPage(
+        name: AppPages.ADDDOGPROFILE,
+        page: ()=> AddDogProfileScreen(),
+      binding: AddDogProfileBinding()
     )
   ];
 

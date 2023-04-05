@@ -43,6 +43,16 @@ dependencies:
   # for responsive size
   flutter_screenutil: ^5.7.0
 
+  # for show bottom sheet
+  modal_bottom_sheet: ^2.1.2
+
+  # for dotted border
+  dotted_border: ^2.0.0+3
+
+  # for image picker
+  image_picker: ^0.8.7+1
+  image_picker_platform_interface: ^2.6.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

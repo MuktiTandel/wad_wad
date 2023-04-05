@@ -4,5 +4,6 @@ class AppPages {
   static const ONBOARD = '/splash';
   static const SIGNUP = '/signup';
   static const HOME = '/home';
+  static const ADDDOGPROFILE = '/addDogProfile';
 
 }

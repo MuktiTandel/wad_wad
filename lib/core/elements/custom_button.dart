@@ -14,7 +14,8 @@ class CustomButton extends StatelessWidget {
     this.isHome = false,
     this.width,
     this.fontSize,
-    this.isSelect = false
+    this.isSelect = false,
+    this.fontWeight
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -26,6 +27,7 @@ class CustomButton extends StatelessWidget {
   final bool? isHome;
   final double? fontSize;
   final bool? isSelect;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,8 @@ class CustomButton extends StatelessWidget {
                     colors: isHome == true
                         ? isSelect == true
                         ? [AppColors.lightOrange, AppColors.darkOrange]
-                        : [AppColors.gray1, AppColors.gray1]
+                        : [backgroundColor ?? AppColors.gray1
+                      , backgroundColor ?? AppColors.gray1]
                         : [AppColors.darkOrange, AppColors.lightOrange],
                   begin: isHome == true ? Alignment.topCenter : Alignment.centerLeft,
                   end: isHome == true ? Alignment.bottomCenter : Alignment.centerRight,
@@ -59,7 +62,7 @@ class CustomButton extends StatelessWidget {
                   child: Text(
                     buttonText,
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
+                        fontWeight: fontWeight ?? FontWeight.w700,
                         fontSize: fontSize ?? 13.sp,
                       fontFamily: "Poppins"
                     ),

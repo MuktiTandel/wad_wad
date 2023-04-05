@@ -10,4 +10,7 @@ class LoginController extends GetxController {
   RxBool isPassword = false.obs;
   RxBool isObscure = false.obs;
 
+  RxBool emailType = false.obs;
+  RxBool passwordType = false.obs;
+
 }

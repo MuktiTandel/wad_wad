@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +21,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.transparent,
@@ -61,11 +61,20 @@ class LoginScreen extends StatelessWidget {
                 controller: loginController.emailController,
                 hintText: AppStrings.eMail,
                 labelPadding: loginController.isEmail.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                onchange: (val){},
-                onTap: (){
-                  loginController.isEmail.value = true;
-                  if ( loginController.passwordController.value.text.isEmpty ) {
-                    loginController.isPassword.value = false;
+                isType: loginController.emailType.value,
+                onchange: (val){
+                  if(val.isNotEmpty) {
+                    loginController.isEmail.value = true;
+                    loginController.emailType.value = true;
+                    if ( loginController.passwordController.value.text.isEmpty ) {
+                      loginController.isPassword.value = false;
+                      loginController.passwordType.value = false;
+                    }
+                  }
+                  if ( val.isEmpty ) {
+                    if ( loginController.emailType.value == true ) {
+                      loginController.emailType.value = false;
+                    }
                   }
                 },
               ),),
@@ -95,11 +104,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 labelPadding: loginController.isPassword.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                onchange: (val){},
-                onTap: (){
-                  loginController.isPassword.value = true;
-                  if ( loginController.emailController.value.text.isEmpty ) {
-                    loginController.isEmail.value = false;
+                isType: loginController.passwordType.value,
+                onchange: (val){
+                  if(val.isNotEmpty) {
+                    loginController.isPassword.value = true;
+                    loginController.passwordType.value = true;
+                    if ( loginController.emailController.value.text.isEmpty ) {
+                      loginController.isEmail.value = false;
+                      loginController.emailType.value = false;
+                    }
+                  }
+                  if (val.isEmpty) {
+                    if ( loginController.passwordType.value == true ) {
+                      loginController.passwordType.value = false;
+                    }
                   }
                 },
               ),),
@@ -200,7 +218,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 20.h,)
             ],
           ),
         ),

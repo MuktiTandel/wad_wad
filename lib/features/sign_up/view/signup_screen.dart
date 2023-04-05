@@ -21,6 +21,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.transparent,
@@ -60,14 +61,24 @@ class SignUpScreen extends StatelessWidget {
                 controller: signUpController.nameController,
                 hintText: AppStrings.fullName,
                 labelPadding: signUpController.isName.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                onchange: (val){},
-                onTap: (){
-                  signUpController.isName.value = true;
-                  if ( signUpController.emailController.value.text.isEmpty ) {
-                    signUpController.isEmail.value = false;
+                isType: signUpController.nameType.value,
+                onchange: (val){
+                  if(val.isNotEmpty) {
+                    signUpController.isName.value = true;
+                    signUpController.nameType.value = true;
+                    if ( signUpController.emailController.value.text.isEmpty ) {
+                      signUpController.isEmail.value = false;
+                      signUpController.emailType.value = false;
+                    }
+                    if ( signUpController.passwordController.value.text.isEmpty ) {
+                      signUpController.isPassword.value = false;
+                      signUpController.passwordType.value = false;
+                    }
                   }
-                  if ( signUpController.passwordController.value.text.isEmpty ) {
-                    signUpController.isPassword.value = false;
+                  if (val.isEmpty ) {
+                    if ( signUpController.nameType.value == true) {
+                      signUpController.nameType.value = false;
+                    }
                   }
                 },
               ),),
@@ -78,14 +89,24 @@ class SignUpScreen extends StatelessWidget {
                 controller: signUpController.emailController,
                 hintText: AppStrings.eMail,
                 labelPadding: signUpController.isEmail.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                onchange: (val){},
-                onTap: (){
-                  signUpController.isEmail.value = true;
-                  if ( signUpController.nameController.value.text.isEmpty ) {
-                    signUpController.isName.value = false;
+                isType: signUpController.emailType.value,
+                onchange: (val){
+                  if ( val.isNotEmpty ) {
+                    signUpController.isEmail.value = true;
+                    signUpController.emailType.value = true;
+                    if ( signUpController.nameController.value.text.isEmpty ) {
+                      signUpController.isName.value = false;
+                      signUpController.nameType.value = false;
+                    }
+                    if ( signUpController.passwordController.value.text.isEmpty ) {
+                      signUpController.isPassword.value = false;
+                      signUpController.passwordType.value = false;
+                    }
                   }
-                  if ( signUpController.passwordController.value.text.isEmpty ) {
-                    signUpController.isPassword.value = false;
+                  if ( val.isEmpty ) {
+                    if ( signUpController.emailType.value == true ) {
+                      signUpController.emailType.value = false;
+                    }
                   }
                 },
               ),),
@@ -115,14 +136,24 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 labelPadding: signUpController.isPassword.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                onchange: (val){},
-                onTap: (){
-                  signUpController.isPassword.value = true;
-                  if ( signUpController.nameController.value.text.isEmpty ) {
-                    signUpController.isName.value = false;
+                isType: signUpController.passwordType.value,
+                onchange: (val){
+                  if(val.isNotEmpty) {
+                    signUpController.isPassword.value = true;
+                    signUpController.passwordType.value = true;
+                    if ( signUpController.nameController.value.text.isEmpty ) {
+                      signUpController.isName.value = false;
+                      signUpController.nameType.value = false;
+                    }
+                    if ( signUpController.emailController.value.text.isEmpty ) {
+                      signUpController.isEmail.value = false;
+                      signUpController.emailType.value = false;
+                    }
                   }
-                  if ( signUpController.emailController.value.text.isEmpty ) {
-                    signUpController.isEmail.value = false;
+                  if ( val.isEmpty ) {
+                    if ( signUpController.passwordType.value == true ) {
+                      signUpController.passwordType.value = false;
+                    }
                   }
                 },
               ),),
@@ -203,7 +234,8 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 20.h,)
             ],
           ),
         ),
