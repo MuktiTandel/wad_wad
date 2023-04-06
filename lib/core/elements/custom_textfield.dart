@@ -24,6 +24,8 @@ class CustomTextField extends StatelessWidget {
     this.autoFocus,
     this.labelPadding,
     this.isType = false,
+    this.textAlign,
+    this.textAlignVertical
   }) : _validator = validator,
         _onchange = onchange,
         super(key: key);
@@ -45,6 +47,8 @@ class CustomTextField extends StatelessWidget {
   final bool? autoFocus;
   final EdgeInsets? labelPadding;
   final bool? isType;
+  final TextAlign? textAlign;
+  final TextAlignVertical? textAlignVertical;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,9 @@ class CustomTextField extends StatelessWidget {
       cursorColor: cursorColor ?? Colors.blue,
       minLines: 1,
       autofocus: autoFocus ?? false,
-      maxLines: maxLine ?? 10,
-      textAlignVertical: isType == true ? TextAlignVertical.bottom : TextAlignVertical.center,
+      maxLines: maxLine ?? 1,
+      textAlign: textAlign ?? TextAlign.start,
+      textAlignVertical: isType == true ? TextAlignVertical.bottom : textAlignVertical ?? TextAlignVertical.center,
       style:  TextStyle(
         fontFamily: "Poppins",
         fontSize: 15.sp

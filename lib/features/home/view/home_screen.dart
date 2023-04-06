@@ -9,6 +9,7 @@ import 'package:wad_wad/core/const/app_strings.dart';
 import 'package:wad_wad/core/elements/custom_button.dart';
 import 'package:wad_wad/core/elements/custom_text.dart';
 import 'package:wad_wad/core/elements/custom_textfield.dart';
+import 'package:wad_wad/core/elements/scroll_behavior.dart';
 import 'package:wad_wad/core/routes/app_pages.dart';
 import 'package:wad_wad/features/home/controller/home_controller.dart';
 
@@ -20,113 +21,122 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: CupertinoScaffold(
           body: Builder(
               builder: (context) => CupertinoPageScaffold(
-                resizeToAvoidBottomInset: false,
-                  child: Padding(
-                    padding: EdgeInsets.all(13.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(height: 10.h,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                              text: AppStrings.wLDogs,
-                              fontSize: 26.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            Row(
+                  child: ScrollConfiguration(
+                    behavior: AppBehavior(),
+                    child: SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minWidth: MediaQuery.of(context).size.width,
+                          minHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(13.w),
+                          child: IntrinsicHeight(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                CustomText(
-                                  text: AppStrings.tUSAbout,
-                                  color: AppColors.gray,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
+                                SizedBox(height: 10.h,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomText(
+                                      text: AppStrings.wLDogs,
+                                      fontSize: 26.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    Row(
+                                      children: [
+                                        CustomText(
+                                          text: AppStrings.tUSAbout,
+                                          color: AppColors.gray,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        CustomText(
+                                          text: " ${AppStrings.you}",
+                                          color: AppColors.darkOrange,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w500,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 25.h,),
+                                    Obx(() =>  CustomText(
+                                      text: ' ${homeController.count.value}/3',
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.gray,
+                                    )),
+                                    SizedBox(height: 8.h,),
+                                    SizedBox(
+                                      height: 3.h,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              color: AppColors.lightOrange,
+                                            ),
+                                          ),
+                                          Obx(() =>  Expanded(
+                                            child: Container(
+                                              color: homeController.isSelect.value == false
+                                                  ? AppColors.lightGray
+                                                  : AppColors.lightOrange,
+                                            ),
+                                          ),),
+                                         Obx(() =>  Expanded(
+                                           child: Container(
+                                             color: homeController.isAgree.value == false
+                                                 ? AppColors.lightGray
+                                                 : AppColors.lightOrange,
+                                           ),
+                                         ))
+                                        ],
+                                      ),
+                                    ),
+                                    Obx(() => homeController.isAgree.value == false ? selectOwnerBorrower() : addressView())
+                                  ],
                                 ),
-                                CustomText(
-                                  text: " ${AppStrings.you}",
-                                  color: AppColors.darkOrange,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
-                                )
+                                SizedBox(height: 10.h,),
+                                Obx(() => CustomButton(
+                                  height: 52.h,
+                                  width: 300.w,
+                                  borderRadius: 16,
+                                  onTap: (){
+                                    homeController.isAgree.value == false ? homeController.isSelect.value == true ? CupertinoScaffold.showCupertinoModalBottomSheet(
+                                        context: context,
+                                        expand: true,
+                                        builder: (context) {
+                                          return homeController.isDogOwner.value == true
+                                              ? bottomSheetWidget(
+                                              title: AppStrings.tMPact,
+                                            subTitle: AppStrings.oPact,
+                                            onTap: (){},
+                                            desc: ownerPact(),
+                                            color: AppColors.orange1
+                                          ) : bottomSheetWidget(
+                                            title: AppStrings.tBPact,
+                                            subTitle: AppStrings.bPact,
+                                            onTap: (){},
+                                            desc: borrowerPact(),
+                                            color: AppColors.orange2
+                                          );
+                                        }
+                                    ) : null : Get.offNamed(AppPages.ADDDOGPROFILE);
+                                  },
+                                  buttonText: AppStrings.next,
+                                  fontSize: 15.sp,
+                                  isHome: true,
+                                  isSelect: homeController.isSelect.value,
+                                ))
                               ],
                             ),
-                            SizedBox(height: 25.h,),
-                            Obx(() =>  CustomText(
-                              text: ' ${homeController.count.value}/3',
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.gray,
-                            )),
-                            SizedBox(height: 8.h,),
-                            SizedBox(
-                              height: 3.h,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      color: AppColors.lightOrange,
-                                    ),
-                                  ),
-                                  Obx(() =>  Expanded(
-                                    child: Container(
-                                      color: homeController.isSelect.value == false
-                                          ? AppColors.lightGray
-                                          : AppColors.lightOrange,
-                                    ),
-                                  ),),
-                                 Obx(() =>  Expanded(
-                                   child: Container(
-                                     color: homeController.isAgree.value == false
-                                         ? AppColors.lightGray
-                                         : AppColors.lightOrange,
-                                   ),
-                                 ))
-                                ],
-                              ),
-                            ),
-                            Obx(() => homeController.isAgree.value == false ? selectOwnerBorrower() : addressView())
-                          ],
+                          ),
                         ),
-                        SizedBox(height: 10.h,),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Obx(() => CustomButton(
-                            height: 52.h,
-                            width: 300.w,
-                            borderRadius: 16,
-                            onTap: (){
-                              homeController.isAgree.value == false ? homeController.isSelect.value == true ? CupertinoScaffold.showCupertinoModalBottomSheet(
-                                  context: context,
-                                  expand: true,
-                                  builder: (context) {
-                                    return homeController.isDogOwner.value == true
-                                        ? bottomSheetWidget(
-                                        title: AppStrings.tMPact,
-                                      subTitle: AppStrings.oPact,
-                                      onTap: (){},
-                                      desc: ownerPact(),
-                                      color: AppColors.orange1
-                                    ) : bottomSheetWidget(
-                                      title: AppStrings.tBPact,
-                                      subTitle: AppStrings.bPact,
-                                      onTap: (){},
-                                      desc: borrowerPact(),
-                                      color: AppColors.orange2
-                                    );
-                                  }
-                              ) : null : Get.offNamed(AppPages.ADDDOGPROFILE);
-                            },
-                            buttonText: AppStrings.next,
-                            fontSize: 15.sp,
-                            isHome: true,
-                            isSelect: homeController.isSelect.value,
-                          )),
-                        )
-                      ],
+                      ),
                     ),
                   )))
       ),

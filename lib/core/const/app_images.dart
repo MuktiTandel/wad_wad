@@ -12,5 +12,6 @@ class AppImages {
   static const String dog1 = 'assets/images/dog1.png';
   static const String dog2 = 'assets/images/dog2.png';
   static const String upload = 'assets/images/upload.png';
+  static const String editImageIcon = 'assets/images/edit_image_icon.png';
 
 }

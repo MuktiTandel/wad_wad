@@ -81,5 +81,14 @@ class AppStrings {
   static const String gInfo = "General Info";
   static const String behavior = "Behavior";
   static const String eAYourself = "Enter about yourself";
+  static const String dogBreed = "Dog Breed";
+  static const String weight = "Weight";
+  static const String mNote = "If any medical conditions please leave a short note below";
+  static const String pANote = "please add note..";
+  static const String fWKids = "Friendly with kids";
+  static const String fWAdults = "Friendly with Adults";
+  static const String fWCats = "Friendly with Cats";
+  static const String fWOtherPets = "Friendly with other Pets";
+  static const String fWLoudNoises = "Friendly with Loud Noises";
 
 }
