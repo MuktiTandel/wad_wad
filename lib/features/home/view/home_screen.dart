@@ -125,7 +125,10 @@ class HomeScreen extends StatelessWidget {
                                             color: AppColors.orange2
                                           );
                                         }
-                                    ) : null : Get.offNamed(AppPages.ADDDOGPROFILE);
+                                    ) : null
+                                        : homeController.isDogOwner.value == true
+                                        ? Get.toNamed(AppPages.ADDDOGPROFILE)
+                                        : Get.toNamed(AppPages.ADDYOURPROFILE);
                                   },
                                   buttonText: AppStrings.next,
                                   fontSize: 15.sp,

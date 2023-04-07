@@ -6,5 +6,6 @@ class AppPages {
   static const HOME = '/home';
   static const ADDDOGPROFILE = '/addDogProfile';
   static const FORGOTPASSWORD = '/forgotPassword';
+  static const ADDYOURPROFILE = '/addYourProfile';
 
 }

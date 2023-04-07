@@ -90,5 +90,19 @@ class AppStrings {
   static const String fWCats = "Friendly with Cats";
   static const String fWOtherPets = "Friendly with other Pets";
   static const String fWLoudNoises = "Friendly with Loud Noises";
+  static const String forgotPassword = "Forgot Password";
+  static const String yourEmail = "Your email";
+  static const String resetPassword = "Enter Your Email to send link for Reset password";
+  static const String aYProfile = "Add Your Profile";
+  static const String eYName = "Enter Your Name";
+  static const String location = "Location";
+  static const String reviews = "Reviews";
+  static const String age = "Age";
+  static const String continue_ = "Continue";
+  static const String iHere = "image here";
+  static const String pUYPhoto = "Please upload your Photo";
+  static const String idHere = "ID here";
+  static const String noReviews = "No Reviews";
+  static const String search = "Search...";
 
 }

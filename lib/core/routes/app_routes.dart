@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:wad_wad/core/routes/app_pages.dart';
 import 'package:wad_wad/features/add_dog_profile/binding/add_dog_profile_binding.dart';
 import 'package:wad_wad/features/add_dog_profile/view/add_dog_profile_screen.dart';
+import 'package:wad_wad/features/add_your_profile/binding/add_your_profile_binding.dart';
+import 'package:wad_wad/features/add_your_profile/view/add_your_profile_screen.dart';
 import 'package:wad_wad/features/forgot_password/binding/forgot_password_binding.dart';
 import 'package:wad_wad/features/forgot_password/view/forgot_password_screen.dart';
 import 'package:wad_wad/features/home/binding/home_binding.dart';
@@ -47,6 +49,11 @@ class AppRoutes {
         name: AppPages.FORGOTPASSWORD,
         page: ()=> ForgotPasswordScreen(),
       binding: ForgotPasswordBinding()
+    ),
+    GetPage(
+        name: AppPages.ADDYOURPROFILE,
+        page: ()=> const AddYourProfileScreen(),
+      binding: AddYourProfileBinding()
     )
   ];
 

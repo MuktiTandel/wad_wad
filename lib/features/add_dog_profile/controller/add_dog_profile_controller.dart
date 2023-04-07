@@ -33,10 +33,7 @@ class AddDogProfileController extends GetxController {
   RxBool isFWOtherPets = false.obs;
   RxBool isFWLoudNoises = false.obs;
 
-  File? image;
   File? imagePath;
-
-  RxString displayImage = "".obs;
 
   Future pickImage() async {
     try {

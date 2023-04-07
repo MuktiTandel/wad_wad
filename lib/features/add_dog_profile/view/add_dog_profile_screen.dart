@@ -1,19 +1,18 @@
-import 'dart:io';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wad_wad/core/const/app_colors.dart';
-import 'package:wad_wad/core/const/app_const.dart';
 import 'package:wad_wad/core/const/app_images.dart';
 import 'package:wad_wad/core/const/app_strings.dart';
 import 'package:wad_wad/core/elements/custom_button.dart';
 import 'package:wad_wad/core/elements/custom_text.dart';
 import 'package:wad_wad/core/elements/custom_textfield.dart';
+import 'package:wad_wad/core/elements/display_image_widget.dart';
 import 'package:wad_wad/core/elements/scroll_behavior.dart';
+import 'package:wad_wad/core/elements/select_image_widget.dart';
+import 'package:wad_wad/core/elements/select_widget.dart';
 import 'package:wad_wad/features/add_dog_profile/controller/add_dog_profile_controller.dart';
 
 class AddDogProfileScreen extends StatefulWidget {
@@ -55,231 +54,154 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
       body: ScrollConfiguration(
         behavior: AppBehavior(),
         child: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.all(12.w),
-            child: Column(
-              children: [
-                addDogProfileController.imagePath == null
-                    ? GestureDetector(
-                  behavior: HitTestBehavior.opaque,
+          child: Column(
+            children: [
+              addDogProfileController.imagePath == null
+                  ? selectImageWidget(
+                onTap: (){
+                addDogProfileController.pickImage().then((value) {
+                  setState(() {
+
+                  });
+                });
+              },
+                title: AppStrings.uImage,
+                subTitle: AppStrings.dIHere
+              ) : displayImageWidget(
+                  imagePath: addDogProfileController.imagePath!.path,
                   onTap: (){
                     addDogProfileController.pickImage().then((value) {
                       setState(() {
 
                       });
                     });
-                  },
-                  child: Container(
-                    height: 150.h,
-                    width: Get.width,
-                    padding: EdgeInsets.only(left: 15.w,right: 15.w),
-                    child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        dashPattern: const [6],
-                        strokeWidth: 1.w,
-                        radius: const Radius.circular(10),
-                        child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Center(
-                                    child: Image.asset(
-                                      AppImages.upload,
-                                      height: 28.h,
-                                    )
-                                ),
-                                Column(
-                                  children: [
-                                    Center(
-                                      child: CustomText(
-                                        text: AppStrings.uImage,
-                                        fontSize: 13.sp,
-                                        color: AppColors.gray1,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: CustomText(
-                                        text: AppStrings.dIHere,
-                                        fontSize: 13.sp,
-                                        color: AppColors.gray1,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                        )
-                    ),
-                  ),
-                )
-                    : Stack(
+                  }
+              ),
+               SizedBox(height: 10.h,),
+              Padding(
+                padding: EdgeInsets.all(12.w),
+                child: Column(
                   children: [
-                    SizedBox(
-                        height: 200.h,
-                        width: Get.width,
-                        child: Image.file(
-                          File(addDogProfileController.imagePath!.path),
-                          fit: BoxFit.cover,
-                        )
-                    ),
-                    Positioned(
-                      top: 16.h,
-                      child: GestureDetector(
-                        onTap: (){},
-                        child: Image.asset(
-                            AppImages.arrowLeft,
-                          height: 22.h,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      right: 5.w,
-                        bottom: 5.h,
-                        child: GestureDetector(
-                          onTap: (){
-                            addDogProfileController.pickImage().then((value) {
-                              setState(() {
-
-                              });
-                            });
-                          },
-                          child: Container(
-                            height: 25.h,
-                            padding: EdgeInsets.all(5.w),
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.7),
-                              shape: BoxShape.circle
-                            ),
-                            child: Image.asset(
-                                AppImages.editImageIcon,
-                            ),
-                          ),
-                        )
-                    )
-                  ],
-                ),
-                SizedBox(height: 25.h,),
-                Obx(() => CustomTextField(
-                  controller: addDogProfileController.dogNameController,
-                  hintText: AppStrings.eYDName,
-                  labelPadding: addDogProfileController.isDogName.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
-                  isType: addDogProfileController.dogNameType.value,
-                  onchange: (val){
-                    if ( val.isNotEmpty ) {
-                      addDogProfileController.isDogName.value = true;
-                      addDogProfileController.dogNameType.value = true;
-                    }
-                    if ( val.isNotEmpty
-                        && addDogProfileController.aboutYourselfController.value.text.isNotEmpty) {
-                      if ( addDogProfileController.isEnable.value == false) {
-                        addDogProfileController.isEnable.value = true;
-                      }
-                    }
-                    if ( val.isEmpty ) {
-                      addDogProfileController.dogNameType.value = false;
-                      if ( addDogProfileController.isEnable.value == true ) {
-                        addDogProfileController.isEnable.value = false;
-                      }
-                    }
-                  },
-                )),
-                SizedBox(height: 2.h,),
-                Divider(
-                  thickness: 1.2.h,
-                  color: AppColors.gray.withOpacity(0.2),
-                ),
-                SizedBox(height: 10.h,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Obx(() => selectWidget(
-                        onTap: (){
-                          if ( addDogProfileController.isAbout.value == false ) {
-                            addDogProfileController.isAbout.value = true;
-                          }
-                          if ( addDogProfileController.isGeneralInfo.value == true ) {
-                            addDogProfileController.isGeneralInfo.value = false;
-                          }
-                          if ( addDogProfileController.isBehavior.value == true ) {
-                            addDogProfileController.isBehavior.value = false;
-                          }
-                          if ( addDogProfileController.dogNameController.text.isEmpty
-                              || addDogProfileController.aboutYourselfController.text.isEmpty ) {
-                            addDogProfileController.isEnable.value = false;
-                          } else {
+                    Obx(() => CustomTextField(
+                      controller: addDogProfileController.dogNameController,
+                      hintText: AppStrings.eYDName,
+                      labelPadding: addDogProfileController.isDogName.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
+                      isType: addDogProfileController.dogNameType.value,
+                      onchange: (val){
+                        if ( val.isNotEmpty ) {
+                          addDogProfileController.isDogName.value = true;
+                          addDogProfileController.dogNameType.value = true;
+                        }
+                        if ( val.isNotEmpty
+                            && addDogProfileController.aboutYourselfController.value.text.isNotEmpty) {
+                          if ( addDogProfileController.isEnable.value == false) {
                             addDogProfileController.isEnable.value = true;
                           }
-                        },
-                        title: AppStrings.about,
-                        backgroundColor: addDogProfileController.isAbout.value == false
-                            ? AppColors.lightGray.withOpacity(0.5)
-                            : Colors.black,
-                        textColor: addDogProfileController.isAbout.value == false
-                            ? AppColors.gray
-                            : Colors.white
-                    ),),
-                    Obx(() =>  selectWidget(
-                        onTap: (){
-                          if ( addDogProfileController.isGeneralInfo.value == false ) {
-                            addDogProfileController.isGeneralInfo.value = true;
-                          }
-                          if ( addDogProfileController.isAbout.value == true ) {
-                            addDogProfileController.isAbout.value = false;
-                          }
-                          if ( addDogProfileController.isBehavior.value == true ) {
-                            addDogProfileController.isBehavior.value = false;
-                          }
-                          if ( addDogProfileController.dogNameController.value.text.isEmpty
-                              || addDogProfileController.dogBreedController.value.text.isEmpty
-                            || addDogProfileController.weightController.value.text.isEmpty
-                            || addDogProfileController.noteController.value.text.isEmpty
-                          ) {
+                        }
+                        if ( val.isEmpty ) {
+                          addDogProfileController.dogNameType.value = false;
+                          if ( addDogProfileController.isEnable.value == true ) {
                             addDogProfileController.isEnable.value = false;
-                          } else {
-                            addDogProfileController.isEnable.value = true;
                           }
-                        },
-                        title: AppStrings.gInfo,
-                        backgroundColor: addDogProfileController.isGeneralInfo.value == false
-                            ? AppColors.lightGray.withOpacity(0.5)
-                            : Colors.black,
-                        textColor: addDogProfileController.isGeneralInfo.value == false
-                            ? AppColors.gray
-                            : Colors.white
-                    ),),
-                    Obx(() => selectWidget(
-                        onTap: (){
-                          if ( addDogProfileController.isBehavior.value == false ) {
-                            addDogProfileController.isBehavior.value = true;
-                          }
-                          if ( addDogProfileController.isAbout.value == true ) {
-                            addDogProfileController.isAbout.value = false;
-                          }
-                          if ( addDogProfileController.isGeneralInfo.value == true ) {
-                            addDogProfileController.isGeneralInfo.value = false;
-                          }
-                        },
-                        title: AppStrings.behavior,
-                        backgroundColor: addDogProfileController.isBehavior.value == false
-                            ? AppColors.lightGray.withOpacity(0.5)
-                            : Colors.black,
-                        textColor: addDogProfileController.isBehavior.value == false
-                            ? AppColors.gray
-                            : Colors.white
-                    ),)
+                        }
+                      },
+                    )),
+                    SizedBox(height: 2.h,),
+                    Divider(
+                      thickness: 1.2.h,
+                      color: AppColors.gray.withOpacity(0.2),
+                    ),
+                    SizedBox(height: 10.h,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Obx(() => selectWidget(
+                            onTap: (){
+                              if ( addDogProfileController.isAbout.value == false ) {
+                                addDogProfileController.isAbout.value = true;
+                              }
+                              if ( addDogProfileController.isGeneralInfo.value == true ) {
+                                addDogProfileController.isGeneralInfo.value = false;
+                              }
+                              if ( addDogProfileController.isBehavior.value == true ) {
+                                addDogProfileController.isBehavior.value = false;
+                              }
+                              if ( addDogProfileController.dogNameController.text.isEmpty
+                                  || addDogProfileController.aboutYourselfController.text.isEmpty ) {
+                                addDogProfileController.isEnable.value = false;
+                              } else {
+                                addDogProfileController.isEnable.value = true;
+                              }
+                            },
+                            title: AppStrings.about,
+                            backgroundColor: addDogProfileController.isAbout.value == false
+                                ? AppColors.lightGray.withOpacity(0.5)
+                                : Colors.black,
+                            textColor: addDogProfileController.isAbout.value == false
+                                ? AppColors.gray
+                                : Colors.white
+                        ),),
+                        Obx(() =>  selectWidget(
+                            onTap: (){
+                              if ( addDogProfileController.isGeneralInfo.value == false ) {
+                                addDogProfileController.isGeneralInfo.value = true;
+                              }
+                              if ( addDogProfileController.isAbout.value == true ) {
+                                addDogProfileController.isAbout.value = false;
+                              }
+                              if ( addDogProfileController.isBehavior.value == true ) {
+                                addDogProfileController.isBehavior.value = false;
+                              }
+                              if ( addDogProfileController.dogNameController.value.text.isEmpty
+                                  || addDogProfileController.dogBreedController.value.text.isEmpty
+                                  || addDogProfileController.weightController.value.text.isEmpty
+                                  || addDogProfileController.noteController.value.text.isEmpty
+                              ) {
+                                addDogProfileController.isEnable.value = false;
+                              } else {
+                                addDogProfileController.isEnable.value = true;
+                              }
+                            },
+                            title: AppStrings.gInfo,
+                            backgroundColor: addDogProfileController.isGeneralInfo.value == false
+                                ? AppColors.lightGray.withOpacity(0.5)
+                                : Colors.black,
+                            textColor: addDogProfileController.isGeneralInfo.value == false
+                                ? AppColors.gray
+                                : Colors.white
+                        ),),
+                        Obx(() => selectWidget(
+                            onTap: (){
+                              if ( addDogProfileController.isBehavior.value == false ) {
+                                addDogProfileController.isBehavior.value = true;
+                              }
+                              if ( addDogProfileController.isAbout.value == true ) {
+                                addDogProfileController.isAbout.value = false;
+                              }
+                              if ( addDogProfileController.isGeneralInfo.value == true ) {
+                                addDogProfileController.isGeneralInfo.value = false;
+                              }
+                            },
+                            title: AppStrings.behavior,
+                            backgroundColor: addDogProfileController.isBehavior.value == false
+                                ? AppColors.lightGray.withOpacity(0.5)
+                                : Colors.black,
+                            textColor: addDogProfileController.isBehavior.value == false
+                                ? AppColors.gray
+                                : Colors.white
+                        ),)
+                      ],
+                    ),
+                    SizedBox(height: 20.h,),
+                    Obx(() => addDogProfileController.isAbout.value == true
+                        ? aboutWidget()
+                        : addDogProfileController.isGeneralInfo.value == true
+                        ? generalInfoWidget()
+                        : behaviorWidget())
                   ],
                 ),
-                SizedBox(height: 20.h,),
-                Obx(() => addDogProfileController.isAbout.value == true
-                    ? aboutWidget()
-                    : addDogProfileController.isGeneralInfo.value == true
-                    ? generalInfoWidget()
-                    : behaviorWidget())
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
@@ -297,35 +219,6 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
               onTap: (){},
               buttonText: AppStrings.next
           ),),
-        ),
-      ),
-    );
-  }
-
-  Widget selectWidget({
-    required VoidCallback onTap,
-    required String title,
-    required Color backgroundColor,
-    required Color textColor
-  }) {
-    return GestureDetector(
-      onTap: (){
-        onTap();
-      },
-      child: Container(
-        height: 40.h,
-        width: 105.w,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: backgroundColor
-        ),
-        child: Center(
-          child: CustomText(
-            text: title,
-            color: textColor,
-            fontWeight: FontWeight.w500,
-            fontSize: 13.sp,
-          ),
         ),
       ),
     );
