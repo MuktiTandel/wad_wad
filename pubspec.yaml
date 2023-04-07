@@ -51,7 +51,12 @@ dependencies:
 
   # for image picker
   image_picker: ^0.8.7+1
-  image_picker_platform_interface: ^2.6.3
+
+  # for display map
+  google_maps_flutter: ^2.2.5
+
+  # for show current location
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
