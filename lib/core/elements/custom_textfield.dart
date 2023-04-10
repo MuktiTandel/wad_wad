@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wad_wad/core/const/app_colors.dart';
-import 'package:wad_wad/core/const/app_const.dart';
 import 'package:wad_wad/core/elements/custom_text.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -14,7 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.errorText,
     required this.controller,
-    Function(String val)? validator,
+    this.validator,
     Function(String val)? onchange,
     this.isObscure = false,
     this.focusBorderColor,
@@ -25,9 +24,10 @@ class CustomTextField extends StatelessWidget {
     this.labelPadding,
     this.isType = false,
     this.textAlign,
-    this.textAlignVertical
-  }) : _validator = validator,
-        _onchange = onchange,
+    this.textAlignVertical,
+    this.textInputType,
+    this.onTap
+  }) :_onchange = onchange,
         super(key: key);
 
   final double? borderRadius;
@@ -36,7 +36,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixWidget;
   final String? hintText;
   final String? errorText;
-  final Function(String val)? _validator;
+  final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool? isObscure;
   final Function(String val)? _onchange;
@@ -49,6 +49,8 @@ class CustomTextField extends StatelessWidget {
   final bool? isType;
   final TextAlign? textAlign;
   final TextAlignVertical? textAlignVertical;
+  final TextInputType? textInputType;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +63,14 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLine ?? 1,
       textAlign: textAlign ?? TextAlign.start,
       textAlignVertical: isType == true ? TextAlignVertical.bottom : textAlignVertical ?? TextAlignVertical.center,
+      keyboardType: textInputType ?? TextInputType.text,
       style:  TextStyle(
         fontFamily: "Poppins",
         fontSize: 15.sp
       ),
+      onTap: (){
+        onTap;
+      },
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 15),
@@ -87,7 +93,7 @@ class CustomTextField extends StatelessWidget {
             color: AppColors.gray,
           )
       ),
-      validator: (val) => _validator!(val!),
+      validator: validator,
       onChanged: (val) => _onchange!(val) ?? (val){},
     );
   }

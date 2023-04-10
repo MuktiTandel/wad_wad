@@ -13,6 +13,7 @@ import 'package:wad_wad/core/elements/display_image_widget.dart';
 import 'package:wad_wad/core/elements/scroll_behavior.dart';
 import 'package:wad_wad/core/elements/select_image_widget.dart';
 import 'package:wad_wad/core/elements/select_widget.dart';
+import 'package:wad_wad/core/routes/app_pages.dart';
 import 'package:wad_wad/features/add_dog_profile/controller/add_dog_profile_controller.dart';
 
 class AddDogProfileScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
                 onTap: (){
                 addDogProfileController.pickImage().then((value) {
                   setState(() {
-
+                    addDogProfileController.validation();
                   });
                 });
               },
@@ -72,7 +73,7 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
                   onTap: (){
                     addDogProfileController.pickImage().then((value) {
                       setState(() {
-
+                        addDogProfileController.validation();
                       });
                     });
                   }
@@ -216,7 +217,11 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
               fontSize: 15.sp,
               isHome: true,
               isSelect: addDogProfileController.isEnable.value,
-              onTap: (){},
+              onTap: (){
+                addDogProfileController.isEnable.value == true
+                    ? Get.toNamed(AppPages.ADDDOGOWNERPROFILE)
+                    : null;
+              },
               buttonText: AppStrings.next
           ),),
         ),
@@ -344,6 +349,10 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
                     controller: addDogProfileController.weightController,
                   textAlignVertical: TextAlignVertical.top,
                   textAlign: TextAlign.center,
+                  onTap: (){
+                    addDogProfileController.weightController.text = " ${AppStrings.pounds}";
+                    addDogProfileController.weightController.selection = TextSelection.fromPosition(const TextPosition(offset: 0));
+                  },
                   onchange: (val) {
                       if ( val.isNotEmpty
                           && addDogProfileController.dogNameController.value.text.isNotEmpty

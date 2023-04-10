@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CupertinoScaffold(
+        overlayStyle: SystemUiOverlayStyle.dark,
           body: Builder(
               builder: (context) => CupertinoPageScaffold(
                   child: ScrollConfiguration(
@@ -106,7 +108,9 @@ class HomeScreen extends StatelessWidget {
                                   width: 300.w,
                                   borderRadius: 16,
                                   onTap: (){
-                                    homeController.isAgree.value == false ? homeController.isSelect.value == true ? CupertinoScaffold.showCupertinoModalBottomSheet(
+                                    homeController.isAgree.value == false
+                                        ? homeController.isSelect.value == true
+                                        ? CupertinoScaffold.showCupertinoModalBottomSheet(
                                         context: context,
                                         expand: true,
                                         builder: (context) {
@@ -126,9 +130,7 @@ class HomeScreen extends StatelessWidget {
                                           );
                                         }
                                     ) : null
-                                        : homeController.isDogOwner.value == true
-                                        ? Get.toNamed(AppPages.ADDDOGPROFILE)
-                                        : Get.toNamed(AppPages.ADDYOURPROFILE);
+                                        : homeController.validation();
                                   },
                                   buttonText: AppStrings.next,
                                   fontSize: 15.sp,
@@ -234,6 +236,7 @@ class HomeScreen extends StatelessWidget {
           hintText: AppStrings.postalCode,
           labelPadding: homeController.isPostalCode.value == true ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
           isType: homeController.postalCodeType.value,
+          textInputType: TextInputType.number,
           onchange: (val){
             if(val.isNotEmpty) {
               homeController.isPostalCode.value = true;
@@ -353,42 +356,45 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: CupertinoScrollbar(
-              child: SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.only(left: 12.w, right: 12.w, top: 5.h),
-                  child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                          text: subTitle,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      SizedBox(height: 20.h,),
-                      desc,
-                      SizedBox(height: 20.h,),
-                      Center(
-                        child: CustomButton(
-                          height: 43.h,
-                            width: 180.w,
-                            onTap: (){
-                              homeController.isAgree.value = true;
-                              if( homeController.count.value == 2 ) {
-                                homeController.count.value++;
-                              }
-                              Get.back();
-                            },
-                            buttonText: AppStrings.agree,
-                          isHome: true,
-                          fontSize: 16.sp,
-                          backgroundColor: color,
-                          fontWeight: FontWeight.w500,
+            child: ScrollConfiguration(
+              behavior: AppBehavior(),
+              child: CupertinoScrollbar(
+                child: SingleChildScrollView(
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 12.w, right: 12.w, top: 5.h),
+                    child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                            text: subTitle,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                      ),
-                      SizedBox(height: 30.h,)
-                    ],
+                        SizedBox(height: 20.h,),
+                        desc,
+                        SizedBox(height: 20.h,),
+                        Center(
+                          child: CustomButton(
+                            height: 43.h,
+                              width: 180.w,
+                              onTap: (){
+                                homeController.isAgree.value = true;
+                                if( homeController.count.value == 2 ) {
+                                  homeController.count.value++;
+                                }
+                                Get.back();
+                              },
+                              buttonText: AppStrings.agree,
+                            isHome: true,
+                            fontSize: 16.sp,
+                            backgroundColor: color,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 30.h,)
+                      ],
+                    ),
                   ),
                 ),
               ),

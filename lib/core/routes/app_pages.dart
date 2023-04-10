@@ -7,5 +7,7 @@ class AppPages {
   static const ADDDOGPROFILE = '/addDogProfile';
   static const FORGOTPASSWORD = '/forgotPassword';
   static const ADDYOURPROFILE = '/addYourProfile';
+  static const ALLSET = '/allSets';
+  static const ADDDOGOWNERPROFILE = '/addDogOwnerProfile';
 
 }

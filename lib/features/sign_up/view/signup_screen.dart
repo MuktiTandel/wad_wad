@@ -161,7 +161,9 @@ class SignUpScreen extends StatelessWidget {
                 ),),
                 SizedBox(height: 15.h,),
                 CustomButton(
-                    onTap: (){},
+                    onTap: (){
+                      signUpController.validation();
+                    },
                     buttonText: AppStrings.signUp,
                   height: 45.h,
                   borderRadius: 13,

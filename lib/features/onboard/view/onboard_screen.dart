@@ -75,7 +75,7 @@ class OnboardScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.offNamed(AppPages.LOGIN);
+                          Get.toNamed(AppPages.LOGIN);
                         },
                         child: CustomText(
                             text: " ${AppStrings.login}",

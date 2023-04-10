@@ -104,5 +104,21 @@ class AppStrings {
   static const String idHere = "ID here";
   static const String noReviews = "No Reviews";
   static const String search = "Search...";
+  static const String aDWProfile = "Add Dog Walker Profile";
+  static const String aSet = "You're all Set";
+  static const String lGo = "Let's Go";
+  static const String pEPassword = "Please enter password";
+  static const String pEEmail = "Please enter email";
+  static const String pEName = "Please enter full name";
+  static const String vPassword = "Password Must be More Than 6 character";
+  static const String vEmail = "Please enter valid email";
+  static const String ok = "ok";
+  static const String pEAddress = "Please enter address";
+  static const String pEPostalCode = "Please enter postal code";
+  static const String age1 = "age";
+  static const String pounds = "Pounds";
+  static const String aDOProfile = "Add Dog Owner Profile";
+  static const String images = "Images";
+  static const String mImagesDesc = "Please upload more images of your dog here to showcase on your profile";
 
 }

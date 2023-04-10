@@ -60,4 +60,28 @@ class AddDogProfileController extends GetxController {
   void otherPetsToggle() => isFWOtherPets.value = isFWOtherPets.value ? false : true;
 
   void loudNoisesToggle() => isFWLoudNoises.value = isFWLoudNoises.value ? false : true;
+
+  void validation() {
+    if ( imagePath != null && dogNameController.value.text.isNotEmpty ) {
+      if ( isAbout.value == true ) {
+        if ( aboutYourselfController.value.text.isNotEmpty ) {
+          isEnable.value = true;
+        } else if ( isGeneralInfo.value == true ) {
+          if ( dogBreedController.value.text.isNotEmpty
+              && weightController.value.text.isNotEmpty
+              && noteController.value.text.isNotEmpty ) {
+            isEnable.value = true;
+          }
+        } else if ( isFWKids.value == true
+            || isFWAdults.value == true
+            || isFWCats.value == true
+            ||  isFWOtherPets.value == true
+            || isFWLoudNoises.value == true ) {
+          isEnable.value = true;
+        }
+      }
+    }
+  }
+
+
 }

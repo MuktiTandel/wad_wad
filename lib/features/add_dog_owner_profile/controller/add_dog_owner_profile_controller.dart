@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,10 +8,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wad_wad/core/const/app_const.dart';
 
-class AddYourProfileController extends GetxController {
+class AddDogOwnerProfileController extends GetxController {
 
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
   final TextEditingController aboutYourselfController = TextEditingController();
   final TextEditingController searchController = TextEditingController();
 
@@ -21,13 +19,17 @@ class AddYourProfileController extends GetxController {
 
   RxBool isAbout = true.obs;
   RxBool isLocation = false.obs;
-  RxBool isReviews = false.obs;
+  RxBool isImages = false.obs;
 
   RxBool isEnable = false.obs;
 
   File? imagePath;
 
   File? idImage;
+
+  File? dogImage;
+
+  List<String?> dogImagesList = [];
 
   CameraPosition kGoogle = const CameraPosition(
     target: LatLng(20.5992, 72.9342),
@@ -53,7 +55,7 @@ class AddYourProfileController extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 
-  Future pickImage(bool isIdImage) async {
+  Future pickImage(bool isIdImage, bool isDogImage) async {
     try {
 
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -62,16 +64,18 @@ class AddYourProfileController extends GetxController {
 
       if ( isIdImage == false ) {
         imagePath = File(image.path);
-
         AppConst().debug('image path => ${imagePath!.path}');
+      } else if ( isDogImage == true ) {
+        dogImage = File(image.path);
+        dogImagesList.add(dogImage!.path);
+        AppConst().debug('dog image path => ${dogImage!.path}');
+        AppConst().debug('dog image list length => ${dogImagesList.length}');
       } else {
         idImage = File(image.path);
-        AppConst().debug('id image path => ${idImage!.path}');
       }
 
     } on PlatformException catch(e) {
       AppConst().debug('Failed to pick image: $e');
     }
   }
-
 }

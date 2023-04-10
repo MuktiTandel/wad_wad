@@ -15,5 +15,8 @@ class AppImages {
   static const String editImageIcon = 'assets/images/edit_image_icon.png';
   static const String reviews = 'assets/images/empty_review.png';
   static const String search = 'assets/images/search.png';
+  static const String group = 'assets/images/group.png';
+  static const String vector = 'assets/images/vector.png';
+  static const String bin = 'assets/images/bin.png';
 
 }
