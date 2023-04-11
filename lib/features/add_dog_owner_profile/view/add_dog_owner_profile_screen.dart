@@ -228,7 +228,7 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
                       Obx(() => controller.isAbout.value == true
                           ? aboutWidget()
                           : controller.isLocation.value == true
-                          ? locationWidget() : imagesWidget()),
+                          ? locationWidget() : addMoreWidget()),
                       SizedBox(height: 20.h,)
                     ],
                   )
@@ -508,6 +508,17 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
               );
             }
         ),
+      ),
+    );
+  }
+
+  Widget addMoreWidget() {
+    return GestureDetector(
+      onTap: (){},
+      child: Row(
+        children: [
+          Image.asset(AppImages.add)
+        ],
       ),
     );
   }

@@ -18,5 +18,6 @@ class AppImages {
   static const String group = 'assets/images/group.png';
   static const String vector = 'assets/images/vector.png';
   static const String bin = 'assets/images/bin.png';
+  static const String add = 'assets/images/add.png';
 
 }

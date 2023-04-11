@@ -120,5 +120,6 @@ class AppStrings {
   static const String aDOProfile = "Add Dog Owner Profile";
   static const String images = "Images";
   static const String mImagesDesc = "Please upload more images of your dog here to showcase on your profile";
+  static const String aMore = "Add More";
 
 }
