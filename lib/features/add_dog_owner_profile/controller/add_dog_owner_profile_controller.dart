@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wad_wad/core/const/app_const.dart';
+import 'package:wad_wad/core/const/app_images.dart';
 
 class AddDogOwnerProfileController extends GetxController {
 
@@ -29,7 +31,7 @@ class AddDogOwnerProfileController extends GetxController {
 
   File? dogImage;
 
-  List<String?> dogImagesList = [];
+  List<Widget> dogImagesList = [];
 
   CameraPosition kGoogle = const CameraPosition(
     target: LatLng(20.5992, 72.9342),
@@ -67,7 +69,6 @@ class AddDogOwnerProfileController extends GetxController {
         AppConst().debug('image path => ${imagePath!.path}');
       } else if ( isDogImage == true ) {
         dogImage = File(image.path);
-        dogImagesList.add(dogImage!.path);
         AppConst().debug('dog image path => ${dogImage!.path}');
         AppConst().debug('dog image list length => ${dogImagesList.length}');
       } else {

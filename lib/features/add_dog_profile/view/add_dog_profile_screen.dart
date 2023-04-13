@@ -206,9 +206,10 @@ class _AddDogProfileScreenState extends State<AddDogProfileScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 80.h,
+      bottomNavigationBar: Container(
+        height: 100.h,
         width: Get.width,
+        padding: EdgeInsets.only(bottom: 10.h),
         child: Center(
           child: Obx(() => CustomButton(
               height: 52.h,

@@ -35,6 +35,11 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
   Completer<GoogleMapController> mapController = Completer();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: controller.imagePath == null ? AppBar(
@@ -228,7 +233,7 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
                       Obx(() => controller.isAbout.value == true
                           ? aboutWidget()
                           : controller.isLocation.value == true
-                          ? locationWidget() : addMoreWidget()),
+                          ? locationWidget() : imagesWidget()),
                       SizedBox(height: 20.h,)
                     ],
                   )
@@ -447,6 +452,8 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
             onTap: (){
               controller.pickImage( true, true).then((value) {
                 setState(() {
+                  controller.dogImagesList.add(displayDogImage(dogImage: controller.dogImage!.path, index: controller.dogImagesList.length));
+                  controller.dogImagesList.add(addMoreWidget());
                 });
               });
             },
@@ -460,52 +467,15 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
         child: GridView.builder(
           shrinkWrap: true,
             padding: EdgeInsets.zero,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0
+                crossAxisSpacing: 10.h,
+                mainAxisSpacing: 10.w,
+              childAspectRatio: 2 / 2.9
             ),
             itemCount: controller.dogImagesList.length,
             itemBuilder: (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  SizedBox(
-                    height: 300.h,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.file(
-                          File(controller.dogImagesList[index]!),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 0,
-                    child: Padding(
-                      padding:  EdgeInsets.all(5.w),
-                      child: GestureDetector(
-                        onTap: (){
-                          controller.dogImagesList.removeAt(index);
-                          setState(() {
-
-                          });
-                        },
-                        child: Container(
-                          height: 25.h,
-                          padding: EdgeInsets.all(6.w),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white54
-                          ),
-                          child: Image.asset(
-                              AppImages.bin,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
+              return controller.dogImagesList[index];
             }
         ),
       ),
@@ -514,12 +484,71 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
 
   Widget addMoreWidget() {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        controller.pickImage( true, true).then((value) {
+          setState(() {
+            controller.dogImagesList.insert( controller.dogImagesList.length - 2 ,displayDogImage(dogImage: controller.dogImage!.path, index: controller.dogImagesList.length));
+          });
+        });
+      },
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(AppImages.add)
+          Image.asset(
+              AppImages.add,
+            color: AppColors.orange,
+            height: 15.h,
+            width: 15.w,
+          ),
+          SizedBox(width: 10.w,),
+          CustomText(
+              text: AppStrings.aMore,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.orange,
+          )
         ],
       ),
     );
   }
+
+  Widget displayDogImage({ required String dogImage, required int index}) {
+    return Stack(
+      children: [
+        SizedBox(
+          height: 300.h,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.file(
+              File(dogImage),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          child: Padding(
+            padding:  EdgeInsets.all(5.w),
+            child: GestureDetector(
+              onTap: (){
+                controller.dogImagesList.removeAt(index);
+              },
+              child: Container(
+                height: 25.h,
+                padding: EdgeInsets.all(6.w),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white54
+                ),
+                child: Image.asset(
+                  AppImages.bin,
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
 }
