@@ -68,9 +68,7 @@ class CustomTextField extends StatelessWidget {
         fontFamily: "Poppins",
         fontSize: 15.sp
       ),
-      onTap: (){
-        onTap;
-      },
+      onTap: onTap,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 15),

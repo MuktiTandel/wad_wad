@@ -9,5 +9,7 @@ class AppPages {
   static const ADDYOURPROFILE = '/addYourProfile';
   static const ALLSET = '/allSets';
   static const ADDDOGOWNERPROFILE = '/addDogOwnerProfile';
+  static const DASHBORED = '/dashBored';
+  static const NOTIFICATION = '/notification';
 
 }

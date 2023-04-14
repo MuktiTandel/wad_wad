@@ -5,6 +5,7 @@ import 'package:wad_wad/core/const/app_images.dart';
 import 'package:wad_wad/core/const/app_strings.dart';
 import 'package:wad_wad/core/elements/custom_button.dart';
 import 'package:wad_wad/core/elements/custom_text.dart';
+import 'package:wad_wad/core/routes/app_pages.dart';
 
 class AllSetScreen extends StatelessWidget {
   const AllSetScreen({Key? key}) : super(key: key);
@@ -55,7 +56,9 @@ class AllSetScreen extends StatelessWidget {
                 child: CustomButton(
                   height: 50.h,
                     fontSize: 15.sp,
-                    onTap: (){},
+                    onTap: (){
+                      Get.toNamed(AppPages.DASHBORED);
+                    },
                     buttonText: AppStrings.lGo
                 ),
               ),

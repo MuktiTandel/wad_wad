@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wad_wad/core/const/app_colors.dart';
+import 'package:wad_wad/core/const/app_const.dart';
 import 'package:wad_wad/core/const/app_images.dart';
 import 'package:wad_wad/core/const/app_strings.dart';
 import 'package:wad_wad/core/elements/custom_button.dart';
@@ -452,7 +453,7 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
             onTap: (){
               controller.pickImage( true, true).then((value) {
                 setState(() {
-                  controller.dogImagesList.add(displayDogImage(dogImage: controller.dogImage!.path, index: controller.dogImagesList.length));
+                  controller.dogImagesList.add(displayDogImage(dogImage: controller.dogImage!.path, index: 0));
                   controller.dogImagesList.add(addMoreWidget());
                 });
               });
@@ -465,7 +466,8 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
       child: Padding(
         padding: EdgeInsets.only(left: 12.w, right: 12.w),
         child: GridView.builder(
-          shrinkWrap: true,
+           shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -487,26 +489,32 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
       onTap: (){
         controller.pickImage( true, true).then((value) {
           setState(() {
-            controller.dogImagesList.insert( controller.dogImagesList.length - 2 ,displayDogImage(dogImage: controller.dogImage!.path, index: controller.dogImagesList.length));
+            controller.dogImagesList.insert( controller.dogImagesList.length - 2 ,displayDogImage(dogImage: controller.dogImage!.path, index: 0));
           });
         });
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
         children: [
-          Image.asset(
-              AppImages.add,
-            color: AppColors.orange,
-            height: 15.h,
-            width: 15.w,
+          SizedBox(height: 20.h,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Center(
+                child: Icon(
+                    Icons.add_rounded,
+                  color: AppColors.orange,
+                )
+              ),
+              SizedBox(width: 5.w,),
+              CustomText(
+                  text: AppStrings.aMore,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.orange,
+              )
+            ],
           ),
-          SizedBox(width: 10.w,),
-          CustomText(
-              text: AppStrings.aMore,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500,
-            color: AppColors.orange,
-          )
         ],
       ),
     );
@@ -531,6 +539,7 @@ class _AddDogOwnerProfileScreenState extends State<AddDogOwnerProfileScreen> {
             padding:  EdgeInsets.all(5.w),
             child: GestureDetector(
               onTap: (){
+                AppConst().debug('index => ${index}');
                 controller.dogImagesList.removeAt(index);
               },
               child: Container(

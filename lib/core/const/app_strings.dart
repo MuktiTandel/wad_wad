@@ -121,5 +121,26 @@ class AppStrings {
   static const String images = "Images";
   static const String mImagesDesc = "Please upload more images of your dog here to showcase on your profile";
   static const String aMore = "Add More";
+  static const String eDW = "Explore Dog Walkers";
+  static const String miles = "miles";
+  static const String name = "user name";
+  static const String notifications = "Notifications";
+  static const String filter = "Filter";
+  static const String availability = "Availability";
+  static const String wDays = "week days";
+  static const String weekend = "weekend";
+  static const String eLevel = "Experience Level";
+  static const String mT2Y = "More Than 2 Year";
+  static const String mT5Y = "More Than 5 Year";
+  static const String mT8Y = "More Than 8 Year";
+  static const String mT10Y = "More Than 10 Year";
+  static const String save = "Save";
+  static const String clear = "Clear";
+  static const String chat = "Chat";
+  static const String favorites = "Favorites";
+  static const String your = "Yours";
+  static const String received = "Received";
+  static const String mutuals = "Mutuals";
+  static const String settings = "Settings";
 
 }
