@@ -6,22 +6,28 @@ import 'package:wad_wad/core/const/app_images.dart';
 import 'package:wad_wad/core/const/app_strings.dart';
 import 'package:wad_wad/core/elements/custom_text.dart';
 import 'package:wad_wad/features/dashboared/controller/like_controller.dart';
+import 'package:wad_wad/features/dashboared/view/favorites/mutuals_screen.dart';
+import 'package:wad_wad/features/dashboared/view/favorites/received_screen.dart';
+import 'package:wad_wad/features/dashboared/view/favorites/yours_screen.dart';
 
 class LikeScreen extends StatelessWidget {
    LikeScreen({Key? key}) : super(key: key);
 
    final controller = Get.put(LikeController());
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(
-            text: AppStrings.favorites,
-            fontSize: 26.sp,
-            fontWeight: FontWeight.bold,
+          Padding(
+            padding:  EdgeInsets.only(left: 13.w,right: 13.w),
+            child: CustomText(
+              text: AppStrings.favorites,
+              fontSize: 26.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 20.h,),
           Row(
@@ -33,8 +39,6 @@ class LikeScreen extends StatelessWidget {
                       controller.isYours.value = true;
                       controller.isReceived.value = false;
                       controller.isMutual.value = false;
-                    } else {
-                      controller.isYours.value = false;
                     }
                     },
                   color: controller.isYours.value == false ? AppColors.gray : AppColors.orange,
@@ -49,8 +53,6 @@ class LikeScreen extends StatelessWidget {
                       controller.isReceived.value = true;
                       controller.isYours.value = false;
                       controller.isMutual.value = false;
-                    } else {
-                      controller.isReceived.value = false;
                     }
                   },
                   color: controller.isReceived.value == false ? AppColors.gray : AppColors.orange,
@@ -65,8 +67,6 @@ class LikeScreen extends StatelessWidget {
                       controller.isMutual.value = true;
                       controller.isYours.value = false;
                       controller.isReceived.value = false;
-                    } else {
-                      controller.isMutual.value = false;
                     }
                   },
                   color: controller.isMutual.value == false ? AppColors.gray : AppColors.orange,
@@ -76,6 +76,12 @@ class LikeScreen extends StatelessWidget {
               )
             ],
           ),
+          Expanded(
+            child: Obx(() => controller.isYours.value == true
+                ? const YoursScreen()
+                : controller.isReceived.value == true
+                ? const ReceivedScreen() : const MutualScreen() ),
+          )
         ],
       ),
     );
@@ -113,7 +119,7 @@ class LikeScreen extends StatelessWidget {
               color: AppColors.orange,
               borderRadius: BorderRadius.circular(10)
             ),
-          ) :  SizedBox(width: 80.w, height: 1.h,)
+          ) :  SizedBox(width: 80.w, height: 1.h,),
         ],
       ),
     );

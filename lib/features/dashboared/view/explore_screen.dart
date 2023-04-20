@@ -16,59 +16,63 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(
-                  text: AppStrings.eDW,
-                fontSize: 13.sp,
-                color: AppColors.gray,
-                fontWeight: FontWeight.w500,
-              ),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: (){
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))
-                    ),
-                      context: context,
-                      builder: ( BuildContext context ) {
-                          return bottomSheetWidget();
-                      }
-                  );
-                },
-                child: Image.asset(
-                    AppImages.filter,
-                  height: 15.h,
-                  width: 15.w,
+      body: Padding(
+        padding:  EdgeInsets.only(left: 13.w, right: 13.w),
+        child: Column(
+          children: [
+            SizedBox(height: 15.h,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(
+                    text: AppStrings.eDW,
+                  fontSize: 13.sp,
+                  color: AppColors.gray,
+                  fontWeight: FontWeight.w600,
                 ),
-              )
-            ],
-          ),
-          SizedBox(height: 20.h,),
-          Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h
-                ),
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return walkersProfile();
-                }
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: (){
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25))
+                      ),
+                        context: context,
+                        builder: ( BuildContext context ) {
+                            return bottomSheetWidget();
+                        }
+                    );
+                  },
+                  child: Image.asset(
+                      AppImages.filter,
+                    height: 15.h,
+                    width: 15.w,
+                  ),
+                )
+              ],
             ),
-          )
-        ],
+            SizedBox(height: 20.h,),
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    crossAxisSpacing: 10.w,
+                    mainAxisSpacing: 10.h
+                  ),
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return walkersProfile();
+                  }
+              ),
+            )
+          ],
+        ),
       )
     );
   }

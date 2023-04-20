@@ -122,6 +122,7 @@ class AppStrings {
   static const String mImagesDesc = "Please upload more images of your dog here to showcase on your profile";
   static const String aMore = "Add More";
   static const String eDW = "Explore Dog Walkers";
+  static const String eDogs = "Explore Dogs";
   static const String miles = "miles";
   static const String name = "user name";
   static const String notifications = "Notifications";
@@ -142,5 +143,11 @@ class AppStrings {
   static const String received = "Received";
   static const String mutuals = "Mutuals";
   static const String settings = "Settings";
+  static const String eProfile = "Edit Profile";
+  static const String desc = "consult the online help";
+  static const String faq = "FAQ";
+  static const String contactUs = "Contact Us";
+  static const String signOut = "Sign out";
+  static const String years = "years";
 
 }

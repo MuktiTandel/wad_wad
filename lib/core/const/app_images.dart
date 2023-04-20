@@ -41,5 +41,11 @@ class AppImages {
   static const String unselectRound = 'assets/images/unselect_round.png';
   static const String selectRound = 'assets/images/select_round.png';
   static const String fillHeart = 'assets/images/fill_heart.png';
+  static const String dog6 = 'assets/images/dog6.png';
+  static const String location = 'assets/images/location.png';
+  static const String edit = 'assets/images/edit.png';
+  static const String faq = 'assets/images/faq.png';
+  static const String contact = 'assets/images/contact.png';
+  static const String signOut = 'assets/images/signout.png';
 
 }

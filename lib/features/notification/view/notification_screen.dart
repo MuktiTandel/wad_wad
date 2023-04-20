@@ -17,6 +17,7 @@ class NotificationScreen extends StatelessWidget {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: false,
         leading: Padding(
           padding:  EdgeInsets.all(12.w),
           child: GestureDetector(

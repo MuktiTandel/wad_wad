@@ -140,14 +140,14 @@ class _AddDogWalkerProfileScreenState extends State<AddDogWalkerProfileScreen> {
                              children: [
                                Obx(() => selectWidget(
                                    onTap: (){
-                                     if ( controller.isAbout.value == false ) {
-                                       controller.isAbout.value = true;
-                                     }
                                      if ( controller.isLocation.value == true ) {
                                        controller.isLocation.value = false;
                                      }
                                      if ( controller.isReviews.value == true ) {
                                        controller.isReviews.value = false;
+                                     }
+                                     if ( controller.isAbout.value == false ) {
+                                       controller.isAbout.value = true;
                                      }
                                    },
                                    title: AppStrings.about,
@@ -298,7 +298,7 @@ class _AddDogWalkerProfileScreenState extends State<AddDogWalkerProfileScreen> {
                       textAlignVertical: TextAlignVertical.top,
                       textInputType: TextInputType.number,
                       onTap: (){
-                        controller.ageController.text = " ${AppStrings.age1}";
+                        controller.ageController.text = " ${AppStrings.years}";
                         controller.ageController.selection = TextSelection.fromPosition(const TextPosition(offset: 0));
                       },
                       onchange: (val) {

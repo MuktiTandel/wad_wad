@@ -26,12 +26,12 @@ class _DashBoredScreenState extends State<DashBoredScreen> {
   Widget build(BuildContext context) {
 
     return  Scaffold(
-      body: Padding(
-        padding:  EdgeInsets.all(13.w),
-        child: Column(
-          children: [
-            SizedBox(height: 40.h,),
-            Row(
+      body: Column(
+        children: [
+          SizedBox(height: 40.h,),
+          Padding(
+            padding:  EdgeInsets.only(left: 13.w, right: 13.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.asset(
@@ -51,20 +51,19 @@ class _DashBoredScreenState extends State<DashBoredScreen> {
                 )
               ],
             ),
-            SizedBox(height: 10.h,),
-            Expanded(
-              child: Obx(() => IndexedStack(
-                index: controller.pageIndex.value,
-                children:  [
-                  ExploreScreen(),
-                  ChatScreen(),
-                  LikeScreen(),
-                  SettingScreen()
-                ],
-              )),
-            )
-          ],
-        ),
+          ),
+          Expanded(
+            child: Obx(() => IndexedStack(
+              index: controller.pageIndex.value,
+              children:  [
+                ExploreScreen(),
+                ChatScreen(),
+                LikeScreen(),
+                SettingScreen()
+              ],
+            )),
+          )
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Visibility(
